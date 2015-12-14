@@ -1,0 +1,54 @@
+---
+params:
+  doc_version: x.y
+  altplot: !r TRUE
+title: "`r paste0('iris_data_set_vm3 v',params$doc_version)`"  
+author: "Han Oostdijk (www.hanoostdijk.nl)"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # current date
+graphics: yes
+linkcolor: blue
+output:
+  pdf_document:
+    fig_caption: yes
+    includes:
+      in_header: 
+      - styles.tex
+      - extra1.tex
+      before_body: extra2.tex
+    keep_tex: no 
+    highlight: tango 
+geometry: 
+  - a4paper 
+  - landscape 
+toc: true
+toc_depth: 2
+knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=encoding,clean=T,output_file = 'Iris_data_set_vm3.pdf') })
+---
+
+```{r child='iris_data_set_bib1.rmd'}
+```
+
+# Load data and create plot object
+Before plotting the iris data set ( `r ref_tab('r1a',F)`) we list the first `r numlist` 
+(because we set variable \mytextit{numlist} to `r numlist` in a chunck we do not present to the reader) 
+observations in the data set `r ref_tab('lbltab1',T)`.  
+As an example of a reference we use \cite{myrefa} with another reference in a footnote\footnote{see \cite{myrefb}}.
+NB. we now have to use the \LaTeX \  \mytextbf{\BSLASH{cite}} and \mytextbf{\BSLASH{footnote}} commands explicitly.
+
+```{r child='iris_data_set_bib2.rmd'}
+```
+
+```{r echo=F,results='asis'}
+# to include References in the table of contents
+#cat('\\cleardoublepage')
+#cat('\\phantomsection')
+cat('\\addcontentsline{toc}{section}{References}')
+```
+
+\begin{thebibliography}{20}
+
+\bibitem[author1]{myrefa} example of reference for author1
+
+\bibitem[author2]{myrefb} example of reference for author2 
+
+\end{thebibliography}

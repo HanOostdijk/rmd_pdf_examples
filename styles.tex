@@ -1,0 +1,25 @@
+% hoqc start inserted styles.tex (via yaml 'in_header:')
+
+% definitions related to graphics
+\usepackage{subfig}
+%\usepackage{graphicx}
+%\usepackage{epstopdf}
+% ensure sas-serif is the default
+\renewcommand*{\familydefault}{\sfdefault}
+% define my alias for text macros
+\newcommand{\mytextrm}[1]{\textrm{#1}}
+\newcommand{\mytextsf}[1]{\textsf{#1}}
+\newcommand{\mytexttt}[1]{\texttt{#1}}
+\newcommand{\mytextit}[1]{\textit{#1}}
+\newcommand{\mytextsl}[1]{\textsl{#1}}
+\newcommand{\mytextbf}[1]{\textbf{#1}}
+\newcommand{\mytextsc}[1]{\textsc{#1}}
+\newcommand{\myemp}[1]{\emp{#1}}
+\newcommand{\BSLASH}[1]{\texttt{\char`\\}{#1}}
+% redefine highlight colors
+\renewcommand{\CommentTok}[1]{\textcolor[rgb]{1.00,0.01,0.01}{\textit{{#1}}}}  % comments in red
+\renewcommand{\CharTok}[1]{\textcolor[rgb]{0.12,0.45,0.09}{{#1}}}              % character darker green than default
+\renewcommand{\StringTok}[1]{\textcolor[rgb]{0.12,0.45,0.09}{{#1}}}            % string darker green than default
+\definecolor{shadecolor}{RGB}{208,208,208}                                     % default of 248 is too light for printing
+
+% hoqc end inserted styles.tex (via yaml 'in_header:')

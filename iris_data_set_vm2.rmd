@@ -1,0 +1,62 @@
+---
+title: "iris_data_set_vm2 (minimal dependency on LaTeX)"  
+author: "Han Oostdijk (www.hanoostdijk.nl)"
+date: "December 2015"
+graphics: yes
+output: pdf_document
+---
+
+```{r child='setup.rmd'}
+```
+
+# Purpose of this example
+In 'iris_data_set_vm1.rmd', where we did not use Latex, we could not use references to figures and tables.
+Here we show how this becomes available when we use Latex (but obviously at the cost of introducing differences in the output formats).  
+The only difference is that we assign labels and captions to the table (the function *def_tab* that is used in *kable* sets the label and caption) and the figure (with the chunk name as label and the contents of *fig.cap* as caption). With the function *ref_tab* we use these labels. *def_tab* and *ref_tab* are defined in the setup chunk.
+
+# Libraries used
+
+```{r echo=TRUE,warning=FALSE,message=FALSE}
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+# constants/calculations we do not show in the text
+numlist  =   10 # number of observations in iris data set that is listed
+tabcap1  =   sprintf('first %.0f observations of iris data set',numlist)
+figr1a   =   "default theme"
+```
+
+# Load data
+We load the iris data set in the workspace.
+
+```{r}
+data(iris)
+```
+
+# List the part of the iris data set
+We list the first `r numlist` 
+(because we set variable *numlist* to `r numlist` in a chunck we do not present to the reader) 
+observations in the data set `r ref_tab('lbltab1',T)`. 
+
+```{r results='asis'}
+kable(iris[1:numlist,],row.names=F,longtable=F,caption=def_tab('lbltab1',tabcap1))
+cat(paste(' #produced',ref_tab('lbltab1',T,prefix='')))
+```
+
+# Create a plot of the iris data set
+Make a *ggplot2* plot object *p* of two variables in the iris data set 
+and use it to create a plot `r ref_tab('r1a',F)`.
+
+```{r r1a,fig.cap=figr1a,out.width="5in",out.height="5in",results='asis'}
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) + 
+  geom_point() 
+p + labs(title = 'default theme')
+cat(paste(' #produced',ref_tab('r1a','F',prefix='')))
+```
+
+# Session Info
+```{r}
+sessionInfo()
+```

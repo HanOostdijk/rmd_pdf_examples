@@ -1,0 +1,60 @@
+```{r child='setup.rmd'}
+```
+
+```{r engine='cat', engine.opts=list(file='extra1.tex')}
+% hoqc start inserted extra1.tex (via yaml 'in_header:')
+
+% definitions for fancy headers/footers
+\usepackage{fancyhdr} 
+\pagestyle{fancy}
+\fancyhf{}
+\cfoot{Page \thepage~of \pageref{LastPage}}
+\usepackage{lastpage}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+% hoqc end inserted extra1.tex (via yaml 'in_header:')
+```
+
+```{r engine='cat', engine.opts=list(file='extra2.tex')}
+% hoqc start inserted extra2.tex (via yaml 'in_header:')
+% not used here
+% hoqc end   inserted extra2.tex (via yaml 'in_header:')
+```
+
+```{r setheader, eval= T,echo=F, results='asis'}
+chead = paste0('Iris data V',params$doc_version)
+chead = sprintf("\\chead{%s}",chead)
+cat(chead)
+```
+
+# Libraries used
+
+```{r echo=TRUE,warning=FALSE,message=FALSE}
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+# various constants/calculations we do not show in the text
+altplot = params$altplot
+if (altplot == T) {
+	fam = 'serif'
+	extra_text =  'with alternative themes' 
+} else {
+	fam = 'sans'
+  extra_text =  '' 
+}
+numlist =   10 # number of observations in iris data set that is listed
+tabcap1  =   sprintf('first %.0f observations of iris data set',numlist)
+figr1a   =   "default theme"
+figr1b   =   "examples of non-default  themes"
+figr1bab =   c('stata theme: s2color','The Economist theme: theme\\_economist')
+if (altplot == T) {
+  altplot_text = paste(
+    'The themes are the stata color theme (*s2color*) and a theme often used in the magazine *The Economist*.',
+    'These can be found ',ref_tab('r1b1','F','F'),'and', ref_tab('r1b2','F',prefix=''),'.') ;
+} else {
+  altplot_text = "" ;
+}
+```

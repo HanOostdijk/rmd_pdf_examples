@@ -1,0 +1,9 @@
+```{r eval= T,echo=F, results='asis'}
+if ( !exists('params')) {params = list()}
+p = data.frame(parameter=names(params),value=do.call(rbind,params))
+```
+```{r echo=FALSE,eval=(length(p)>0),results='asis'}
+cat("\\section{External parameters used}")
+kable(p,digits=3,row.names=F, caption=def_tab('lbltabparams',"External parameters used"),format='latex', longtable=F)
+cat(paste("The external parameters used can be found in",ref_tab('lbltabparams'),"."))
+```

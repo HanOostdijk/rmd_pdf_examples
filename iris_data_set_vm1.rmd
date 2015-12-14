@@ -1,0 +1,74 @@
+---
+title: "iris_data_set_vm1 (no dependency on LaTeX)"  
+author: "Han Oostdijk (www.hanoostdijk.nl)"
+date: "December 2015"
+graphics: yes
+output: pdf_document
+# output: html_document
+# output: word_document
+---
+
+```{r setup, include=FALSE, cache=FALSE,warning=FALSE,message=FALSE} 
+library(knitr)
+options(replace.assign=TRUE,width=90)
+opts_chunk$set(fig.show='hold',tidy=FALSE,
+  fig.width=8,fig.height=8,fig.scap=NA,highlight = T)
+if (identical(knitr:::pandoc_to(), 'latex')) {
+	knit_hooks$set(plot = hook_plot_tex)
+	opts_chunk$set(fig.align="center",out.width="3in",out.height="3in")
+}
+if (identical(knitr:::pandoc_to(), 'html')) knit_hooks$set(plot = hook_plot_html)
+```
+
+# Purpose of this example
+With the rmarkdown format an author can easily specify how a document should be formatted.
+When the final document has to be a pdf-file a Latex installation is required. 
+The rmarkdown (rmd) file can contain all Latex commands that the author thinks necessary.
+This example shows how to create a pdf-file from an rmd-file without any additional Latex commands.  
+The advantage of not including Latex commands is that e.g. html or MSWord documents can be created without 
+(nearly any) changes: by changing in the yaml-header **'output: pdf_document'** to **'output: word_document'** or **'output: html_document'** 
+instead of a pdf-document a docx- or html-document is created.  
+The main disadvantage is that internal references to figure and tables are not available. In the next example we will show how to do this for the pdf case but this introduces a differences between the three document formats.
+
+# Libraries used
+
+```{r echo=TRUE,warning=FALSE,message=FALSE}
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+# constants/calculations we do not show in the text
+numlist  =   10 # number of observations in iris data set that is listed
+```
+
+# Load data
+We load the iris data set in the workspace.
+
+```{r}
+data(iris)
+```
+
+# List the part of the iris data set
+We list the first `r numlist` 
+(because we set variable *numlist* to `r numlist` in a chunck we do not present to the reader) 
+observations in the data set. 
+
+```{r results='asis'}
+kable(iris[1:numlist,],row.names=F,longtable=F)
+```
+
+# Create a plot of the iris data set
+Make a *ggplot2* plot object *p* of two variables in the iris data set 
+and use it to create a plot.
+
+```{r r1a,results='asis'}
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) + 
+  geom_point() 
+p + labs(title = 'default theme')
+```
+
+# Session Info
+```{r}
+sessionInfo()
+```

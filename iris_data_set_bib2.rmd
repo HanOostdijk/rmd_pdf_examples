@@ -1,0 +1,37 @@
+
+```{r results='asis'}
+data(iris)
+kable(iris[1:numlist,],row.names=F, caption=def_tab('lbltab1',tabcap1),
+  format='latex', longtable=F)
+cat(paste(' #produced',ref_tab('lbltab1',T)))
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species))+
+  geom_point() 
+```
+
+# Plot iris data `r extra_text`
+We plot the iris data with package *ggplot2*  `r ref_tab('r1a',F)`.  
+Because parameter *altplot* was set to `r altplot` (in a chunck we do not present to the reader) two plots with a different theme are `r ifelse(altplot,"also","not")` printed. `r altplot_text`
+
+```{r r1a,fig.cap=figr1a,out.width="5in",out.height="5in",results='asis'}
+p + 
+  labs(title = 'default theme')
+cat(paste(' #produced',ref_tab('r1a','F')))
+```
+
+```{r r1b,eval=altplot,echo=altplot,fig.cap=figr1b,fig.subcap=figr1bab,out.width="3in",out.height="3in",results='asis'}
+p + theme_stata(scheme = "s2color", base_size = 12, base_family = fam) + 
+  labs(title = sprintf('theme_stata scheme = "s2color", base_size = 12, base_family = "%s"',fam))
+cat(paste(' #produced',ref_tab('r1b1','F')))
+p + theme_economist(base_size = 10, base_family = fam) +
+  labs(title = sprintf('theme_economist base_size = 10, base_family = "%s"',fam))
+# this is a comment
+cat(paste(' #produced',ref_tab('r1b2','F')))
+```
+
+```{r child="list_params.rmd"}
+```
+
+# Session Info
+```{r}
+sessionInfo()
+```

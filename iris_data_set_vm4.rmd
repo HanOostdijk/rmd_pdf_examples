@@ -1,0 +1,47 @@
+---
+params:
+  doc_version: x.y
+  altplot: !r FALSE
+title: "`r paste0('iris_data_set_vm4 v',params$doc_version)`"  
+author: "Han Oostdijk (www.hanoostdijk.nl)"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # current date
+graphics: yes
+linkcolor: blue
+output:
+  pdf_document:
+    fig_caption: yes
+    includes:
+      in_header: 
+      - styles.tex
+      - extra1.tex
+      before_body: extra2.tex
+    keep_tex: no 
+    highlight: tango 
+geometry: 
+  - a4paper 
+  - landscape 
+toc: true
+toc_depth: 2
+knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=encoding,clean=T,output_file = 'Iris_data_set_vm4.pdf') })
+bibliography: mybib.bib 
+---
+
+```{r child='iris_data_set_bib1.rmd'}
+```
+
+# Load data and create plot object
+Before plotting the iris data set (in `r ref_tab('r1a',F)`) we list the first `r numlist` (because we set variable \mytextit{numlist} to `r numlist` in a chunck we do not present to the reader) observations in the data set in  `r ref_tab('lbltab1',T)`.  
+As an example of a reference we use [@myrefa]. You can also include a reference in an inline footnote as demonstrated here^[This footnote references [@myrefb] and [@article].].   
+NB. using the \LaTeX \ \mytextbf{\BSLASH{footnote}}-command does not give the correct layout.
+
+```{r child='iris_data_set_bib2.rmd'}
+```
+
+```{r echo=F,results='asis'}
+# to include References in the table of contents
+#cat('\\cleardoublepage')
+#cat('\\phantomsection')
+cat('\\addcontentsline{toc}{section}{References}')
+```
+
+# References
