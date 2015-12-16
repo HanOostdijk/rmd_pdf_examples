@@ -1,0 +1,52 @@
+---
+params:
+  sortorder: ascending
+title: "`r paste('iris_data_set_vm5',params$sortorder)`"  
+author: "Han Oostdijk (www.hanoostdijk.nl)"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # current date
+graphics: yes
+linkcolor: blue
+output:
+  pdf_document:
+    fig_caption: yes
+    includes:
+      in_header: 
+      - styles.tex
+    keep_tex: no 
+    highlight: tango 
+geometry: 
+  - a4paper 
+  - portrait 
+toc: false
+toc_depth: 2
+knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=encoding,clean=T,output_file = 'Iris_data_set_vm5.pdf') })
+bibliography: mybib.bib 
+---
+
+```{r child='setup.rmd'}
+```
+
+```{r echo=FALSE,warning=FALSE,message=FALSE}
+# various constants/calculations we do not show in the text
+sortorder = params$sortorder
+if (sortorder == 'descending') {
+	childname1 = 'iris_data_set_vm5d1.rmd'
+	childname2 = 'iris_data_set_vm5d2.rmd'
+} else {
+	childname1 = 'iris_data_set_vm5a1.rmd'
+	childname2 = 'iris_data_set_vm5a2.rmd'
+}
+numlist =   10 # number of observations in iris data set that is listed
+
+```
+# Introduction 
+Depending on the parameter \mytextit{sortorder} we will show the first `r numlist` observations of the iris data set sorted in ascending or descending order of the variable \mytextit{Sepal.Length}.
+
+```{r child=childname1}
+```
+
+Advantage of working with different child sources is that the global structure is very transparent. Forcing the logic in one file is possible but at the cost of readability and length of code. On the other hand the maintenance of various sources is more error-prone.
+
+```{r child=childname2}
+```
+

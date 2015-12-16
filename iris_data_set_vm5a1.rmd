@@ -1,0 +1,2 @@
+Apparently the parameter in this case is \mytextit{ascending}.
+`r ref_tab('r1a',prefix='')` shows the resulting table.

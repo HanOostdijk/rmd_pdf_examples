@@ -58,6 +58,11 @@ You can also use (and reuse) a bibliography that is stored in an external file. 
 ## iris_data_set_vm4.rmd
 This example is the nearly the same as the previous example. The difference is that the parameter *altplot* is now set to *F* and  that the bibiography is now in an external file. The latter is convenient when you often reference the same items. The bibliography has to be specified in the yaml-header and is fully handled by Pandoc and not by the LaTeX processor. Therefore the Pandoc way of referring has to be used and not the **\cite** method.
 
+## iris_data_set_vm5.rmd
+In the last examples we used a parameter to distinguish the two cases: only one plot or with an additional plot. We used the parameter as a boolean flag for the *eval* and *echo* parameters in the *r1b* chunk. 
+However each parameter in a chunk can be an R expression. We use this in the current example: we include child documents where the file name is an R expression dependent on the parameter. The example shows a table where depending on a parameter *sortorder* the observations with the highest or lowest values of the variable *Sepal.Length* are displayed.
+
+
 ## Session Info for created documents
 
 ```

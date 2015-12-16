@@ -1,0 +1,11 @@
+# First `r numlist` observations of iris data set (`r  params$sortorder`)
+Because the \mytextit{sortorder} parameter was set to ascending we will first sort the iris dataset in ascending order on \mytextit{Sepal.Length}.
+
+```{r r1a,results='asis'}
+data(iris)
+iris = iris[order(iris$Sepal.Length,decreasing = FALSE),]
+caption1a = paste('first',numlist, 
+  'observations of iris data set in ascending order of  Sepal.Length')
+kable(iris[1:numlist,],row.names=F, caption=def_tab('r1a',caption1a),
+  format='latex', longtable=F)
+```
