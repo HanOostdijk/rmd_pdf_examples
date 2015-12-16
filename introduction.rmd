@@ -28,7 +28,7 @@ knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=enco
 ```
 
 # Purpose of this document
-This document describes some examples of the use of RMarkdown to produce PDF files. The examples differ in the measure that additional \LaTeX \  functionality has been used. 
+This document describes some examples of the use of \mytextbf{R Markdown} \cite{RMarkdown} to produce PDF files. The examples differ in the measure that additional \LaTeX \  functionality has been used. 
 
 # Software used
 This document and the ones described are created by editing the input files (rmd-, tex- and bib-files) in the
@@ -110,5 +110,6 @@ cat('\\addcontentsline{toc}{section}{References}')
 \bibitem[knitr]{knitr}  knitr: A General-Purpose Package for Dynamic Report Generation in R,Yihui Xie,http://yihui.name/knitr/
 \bibitem[RStudio]{RStudio} RStudio Version 0.99.489  \copyright \ 2009-2015 RStudio, Inc.  
 \bibitem[Pandoc]{Pandoc}  Pandoc a universal document converter, http://pandoc.org/
+\bibitem[RMarkdown]{RMarkdown} R Markdown — Dynamic Documents for R  http://rmarkdown.rstudio.com/
 \end{thebibliography}
 

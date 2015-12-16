@@ -2,7 +2,7 @@
 Examples of use of rmarkdown for creating pdf-files
 
 # Introduction
-This document describes some examples of the use of RMarkdown to produce PDF files.  
+This document describes some examples of the use of [**R Markdown**](http://rmarkdown.rstudio.com/) to produce PDF files.  
 The examples differ in the measure that additional LaTeX functionality has been used. 
 
 # Software used
