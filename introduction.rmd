@@ -8,6 +8,7 @@ output:
     includes:
       in_header: 
       - extra1.tex
+    keep_tex: yes
 toc: true
 toc_depth: 2  
 knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=encoding,clean=F,output_file = 'introduction.pdf') })
@@ -29,6 +30,8 @@ knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=enco
 
 # Purpose of this document
 This document describes some examples of the use of \mytextbf{R Markdown} \cite{RMarkdown} to produce PDF files. The examples differ in the measure that additional \LaTeX \  functionality has been used. 
+
+\mytextit{NB. handling of bibliographies in the manner done here is suddenly changed in package rmarkdown version 1.9 . I~have regressed to version 1.8.1 (by using the r package \mytextbf{rmis}) but will try to find out how to fix this in the newer version.}
 
 # Software used
 This document and the ones described are created by editing the input files (rmd-, tex- and bib-files) in the
@@ -93,6 +96,10 @@ This example is the nearly the same as the previous example. The difference is t
 In the last examples we used a parameter to distinguish the two cases: only one plot or with an additional plot. We used the parameter as a boolean flag for the \mytextit{eval} and \mytextit{echo} parameters in the \mytextit{r1b} chunk. 
 However each parameter in a chunk can be an R expression. We use this in the current example: we include child documents where the file name is an R expression dependent on the parameter. The example shows a table where depending on a parameter \mytextit{sortorder} the observations with the highest or lowest values of the variable \mytextit{Sepal.Length} are displayed.
 
+## iris_data_set_vm6.rmd
+In the previous examples we used only a limited amount of \LaTeX \  in our code. In this example we show how to display two or more tables side by side. This is convenient (saves space and avoids turning over pages) when dealing with many small tables. The \LaTeX \ code needed for this was found on \mytextbf{stackoverflow} \cite{Kosinski} and packaged by me in an R-function. 
+In this example we place the two possible tables of the previous example side by side.
+
 # Session Info for created documents
 
 ```{r echo=F}
@@ -103,13 +110,14 @@ sessionInfo()
 #cat('\\cleardoublepage')
 #cat('\\phantomsection')
 cat('\\addcontentsline{toc}{section}{References}')
+
 ```
 
-\begin{thebibliography}{20}
-
-\bibitem[knitr]{knitr}  knitr: A General-Purpose Package for Dynamic Report Generation in R,Yihui Xie,http://yihui.name/knitr/
-\bibitem[RStudio]{RStudio} RStudio Version 0.99.489  \copyright \ 2009-2015 RStudio, Inc.  
-\bibitem[Pandoc]{Pandoc}  Pandoc a universal document converter, http://pandoc.org/
-\bibitem[RMarkdown]{RMarkdown} R Markdown — Dynamic Documents for R  http://rmarkdown.rstudio.com/
-\end{thebibliography}
+\begin{thebibliography}{20} 
+\bibitem[knitr]{knitr}  knitr: A General-Purpose Package for Dynamic Report Generation in R,Yihui Xie,http://yihui.name/knitr/ 
+\bibitem[RStudio]{RStudio} RStudio Version 0.99.489  \copyright \ 2009-2015 RStudio, Inc. 
+\bibitem[Pandoc]{Pandoc}  Pandoc a universal document converter, http://pandoc.org/ 
+\bibitem[RMarkdown]{RMarkdown} R Markdown — Dynamic Documents for R http://rmarkdown.rstudio.com/ 
+\bibitem[Marcin Kosiński]{Kosinski} Answer on a stackoverflow question http://stackoverflow.com/questions/23926671/side-by-side-xtables-in-rmarkdown 
+\end{thebibliography} 
 

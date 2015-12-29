@@ -1,0 +1,84 @@
+---
+params:
+  sortorder: ascending
+title: "iris_data_set_vm6"  
+author: "Han Oostdijk (www.hanoostdijk.nl)"
+date: "`r format(Sys.time(), '%d %B, %Y')`" # current date
+graphics: yes
+linkcolor: blue
+output:
+  pdf_document:
+    fig_caption: yes
+    includes:
+      in_header: 
+      - styles.tex
+    keep_tex: no 
+    highlight: tango 
+geometry: 
+  - a4paper 
+  - portrait 
+  - margin=0.5in
+toc: false
+toc_depth: 2
+knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=encoding,clean=T,output_file = 'Iris_data_set_vm6.pdf') })
+#bibliography: mybib.bib 
+---
+
+```{r child='setup.rmd'}
+```
+
+# Introduction 
+This example shows how to print two tables side by side. It makes use of the 
+function \mytextit{print\_table\_sbs} that generates the \LaTeX \ commands that are necessary for this. If this is usable depends on the size of the tables and your eyesight.
+
+# Utility functions and constants
+```{r echo=T,warning=FALSE,message=FALSE}
+numlist = 10 # number of observations in iris data set that is listed
+
+print_table_sbs <- function (files,label,cap,caps,scalebox=0.85) {
+# print xtables saved in files side-by-side
+# derived from Marcin Kosiński
+# http://stackoverflow.com/questions/23926671/side-by-side-xtables-in-rmarkdown
+cat('\\begin{table}[ht]\n')
+cat('\\centering\n')  
+for (i in 1:length(files)) {
+  tc  = caps[[i]]
+  tci = paste0(label,letters[i])
+  f   = files[[i]]
+  c = '\\subfloat[%s]{\\label{table:%s}\\scalebox{%.3f}{\\input{./%s}}}\\quad\n'
+  cat(sprintf(c,tc,tci,scalebox,f))
+}
+cat(sprintf('\\caption{%s}\n',cap))
+cat(sprintf('\\label{table:%s}\n',label))
+cat('\\end{table}') 
+}
+```
+
+# Explanation
+We will create two tables in R and use package \mytextbf{xtable} to write the \LaTeX \  representation to a tex-file. We use the iris data set as an example and will sort it in  ascending and descending order (by the variable \mytextit{Sepal.Length}). Because that is  twice (nearly) the same code we have created the function \mytextit{create\_xtable} to do this. In the function we select only the first/last `r numlist` observations.    
+However the only important line is  \mytextit{print(xtable(. . . floating=FALSE)} .  
+The function \mytextit{print\_table\_sbs} will take the two files and print them side by side  if that fits. Otherwise the second table will be positioned below the first one.
+`r ref_tab('r1a',prefix='')` we will show the `r numlist` observations with the smallest and `r ref_tab('r1b',prefix='',add_page=F)` the ones with the greatest \mytextit{Sepal.Length}. 
+```{r,warning=F,message=F}
+library(xtable)
+create_xtable<- function (decreasing,numlist,filename) {
+  data(iris)
+  tab = iris[order(iris$Sepal.Length,decreasing = decreasing),]
+  print(xtable(tab[1:numlist,],row.names=F),
+    file=paste0(filename,'.tex'),floating=FALSE)
+}
+
+create_xtable(F,numlist,filename='asc') 
+create_xtable(T,numlist,filename='desc') 
+```
+
+```{r r1,results= 'asis'}
+files = c('asc','desc') # filenames (without suffix tex)
+label = 'r1' # label (sublabels have suffix 1,2, ...)
+cap   = 'first/last observations of iris data set sorted by \\mytextit{Sepal.Length}'
+caps  = c('first', 'last')
+print_table_sbs(files,label,cap,caps,scalebox=0.5) 
+cat(paste(' #produced',ref_tab('r1',prefix='')))
+```
+
+
