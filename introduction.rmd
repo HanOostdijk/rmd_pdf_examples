@@ -1,7 +1,7 @@
 ---
 title: "Introduction to RMarkdown->PDF examples"  
 author: "Han Oostdijk (www.hanoostdijk.nl)"
-date: "December 2015"
+date: "January 2016"
 graphics: yes
 output:
   pdf_document:
@@ -31,7 +31,7 @@ knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=enco
 # Purpose of this document
 This document describes some examples of the use of \mytextbf{R Markdown} \cite{RMarkdown} to produce PDF files. The examples differ in the measure that additional \LaTeX \  functionality has been used. 
 
-\mytextit{NB. handling of bibliographies in the manner done here is suddenly changed in package rmarkdown version 0.9 . I~have regressed to version 0.8.1 (by using the r package \mytextbf{rmis}) but will try to find out how to fix this in the newer version.}
+\mytextit{NB. handling of bibliographies in the manner done here did not work anymore in package rmarkdown version 0.9 . This was corrected in 0.9.1 so please update the package to this version or later when you need this functionality.}
 
 # Software used
 This document and the ones described are created by editing the input files (rmd-, tex- and bib-files) in the
