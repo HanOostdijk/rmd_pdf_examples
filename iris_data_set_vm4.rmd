@@ -29,6 +29,10 @@ bibliography: mybib.bib
 ```{r child='iris_data_set_bib1.rmd'}
 ```
 
+# Introduction
+This example is the nearly the same as the previous example. The difference is that the parameter \mytextit{altplot} is now set to `r F` and  that the bibiography is now in an external file. The latter is convenient when you often reference the same items. The bibliography has to be specified in the yaml-header and is fully handled by Pandoc and not by the \LaTeX \ processor. Therefore the Pandoc way of referring has to be used and not the \BSLASH{cite} method.
+
+
 # Load data and create plot object
 Before plotting the iris data set (in `r ref_tab('r1a',F)`) we list the first `r numlist` (because we set variable \mytextit{numlist} to `r numlist` in a chunck we do not present to the reader) observations in the data set in  `r ref_tab('lbltab1',T)`.  
 As an example of a reference we use [@myrefa]. You can also include a reference in an inline footnote as demonstrated here^[This footnote references [@myrefb] and [@article].].   

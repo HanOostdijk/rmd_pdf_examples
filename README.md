@@ -5,7 +5,7 @@ Examples of use of rmarkdown for creating pdf-files
 This document describes some examples of the use of [**R Markdown**](http://rmarkdown.rstudio.com/) to produce PDF files.  
 The examples differ in the measure that additional LaTeX functionality has been used. 
 
-*NB. handling of bibliographies in the manner done here is suddenly changed in package rmarkdown version 1.9 . I have regressed to version 1.8.1 (by using the r package* **rmis***) but will try to find out how to fix this in the newer version.*
+*NB. handling of bibliographies in the manner done here is suddenly changed in package rmarkdown version 0.9 . This was corrected in 0.9.1 so please update the package to this version or later when you need this functionality.*  
 
 # Software used
 This document and the ones described are created by editing the input files (rmd-, tex- and bib-files) in the [**RStudio**](https://www.rstudio.com/products/RStudio/) environment and pressing the **Knit** button.  

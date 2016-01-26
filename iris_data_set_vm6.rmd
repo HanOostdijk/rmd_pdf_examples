@@ -81,4 +81,9 @@ print_table_sbs(files,label,cap,caps,scalebox=0.5)
 cat(paste(' #produced',ref_tab('r1',prefix='')))
 ```
 
+# Session Info
+```{r}
+sessionInfo()
+```
+
 

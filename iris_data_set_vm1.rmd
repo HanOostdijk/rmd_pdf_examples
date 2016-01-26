@@ -1,7 +1,7 @@
 ---
 title: "iris_data_set_vm1 (no dependency on LaTeX)"  
 author: "Han Oostdijk (www.hanoostdijk.nl)"
-date: "December 2015"
+date: "January 2016"
 graphics: yes
 output: pdf_document
 # output: html_document
@@ -20,7 +20,7 @@ if (identical(knitr:::pandoc_to(), 'latex')) {
 if (identical(knitr:::pandoc_to(), 'html')) knit_hooks$set(plot = hook_plot_html)
 ```
 
-# Purpose of this example
+# Introduction
 With the rmarkdown format an author can easily specify how a document should be formatted.
 When the final document has to be a pdf-file a Latex installation is required. 
 The rmarkdown (rmd) file can contain all Latex commands that the author thinks necessary.
@@ -28,7 +28,7 @@ This example shows how to create a pdf-file from an rmd-file without any additio
 The advantage of not including Latex commands is that e.g. html or MSWord documents can be created without 
 (nearly any) changes: by changing in the yaml-header **'output: pdf_document'** to **'output: word_document'** or **'output: html_document'** 
 instead of a pdf-document a docx- or html-document is created.  
-The main disadvantage is that internal references to figure and tables are not available. In the next example we will show how to do this for the pdf case but this introduces a differences between the three document formats.
+The main disadvantage is that internal references to figure and tables are not available. In the next examples we will show how to do this for the pdf case but this introduces a differences between the three document formats.
 
 # Libraries used
 
@@ -50,9 +50,7 @@ data(iris)
 ```
 
 # List the part of the iris data set
-We list the first `r numlist` 
-(because we set variable *numlist* to `r numlist` in a chunck we do not present to the reader) 
-observations in the data set. 
+We list the first `r numlist` (because we set variable *numlist* to `r numlist` in a chunck we do not present to the reader) observations in the data set. 
 
 ```{r results='asis'}
 kable(iris[1:numlist,],row.names=F,longtable=F)

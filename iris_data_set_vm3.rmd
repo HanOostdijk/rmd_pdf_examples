@@ -28,6 +28,37 @@ knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=enco
 ```{r child='iris_data_set_bib1.rmd'}
 ```
 
+# Introduction
+In this example we use additional \LaTeX \ packages to
+
+* set the default font to be sans-serif (via include of \mytextbf{header.tex})
+* load the package \mytextit{subfig} so that in a chunk two figures can be placed side by side (via include of \mytextbf{header.tex})
+* (re) define some text macros (via include of \mytextbf{header.tex})
+* redefine some of the colors that are used for highlighting the R-code and its background (via include of \mytextbf{header.tex}).
+With one of these settings the background color was made darker so that it would be just visible when the document is printed.
+* load and set some attributes of the package \mytextit{fancyhdr} that enables the use of headers and footers (via include of \mytextbf{extra1.tex})
+* set additional attributes for \mytextit{fancyhdr} (via the chunk \mytextbf{setheader} in iris_data_set_bib1.rmd)
+
+We have structured these \LaTeX \ commands in three separate groups:
+
+* in the external permanent file \mytextbf{header.tex} the commands that go in the \LaTeX \ preamble part and don't change for each document
+* in the internal file \mytextbf{extra1.tex} the commands that go in the \LaTeX \ preamble part and are specific for this document
+* in the internal file \mytextbf{extra2.tex} the commands that go in front of the \LaTeX \ body part and are specific for this document.
+In our examples no contents: a candidate for inclusion would be the \BSLASH{chead} command but because the header is not constant (see next paragraph) we need to use an engine_R chunk and not a engine_cat chunk.
+
+Apart from these \LaTeX \ changes we also show what can be done in the yaml-header:
+
+* define your own parameters by using the \mytextit{params} keyword:
+    + we use the \mytextit{doc\_version} parameter to include a version number in the header of each page
+    + we use the \mytextit{altplot} parameter to change the program flow by changing some text and including or omitting a figure.
+    We do this by setting some text variables dependent on the parameter and using the parameter to decide about executing and echoing chunks.
+* specify e.g. the page orientation by using the \mytextit{geometry} keyword
+* specify that a table of contents is to be included
+* specify the \mytextit{knit} command that will be executed. Here we use it to explicitly specify the name of the pdf-file and to ensure that the intermediate md-file is not removed after processing. By specifying \mytextit{keep\_tex: yes} the intermediate tex-file will also be kept. This can be useful for debugging when the output is not as expected.
+
+We also show here how to use an internal bibliography. This is a list of references that we include at the end of the document.
+You can also use (and reuse) a bibliography that is stored in an external file. Handling of that is shown in the next example.
+
 # Load data and create plot object
 Before plotting the iris data set ( `r ref_tab('r1a',F)`) we list the first `r numlist` 
 (because we set variable \mytextit{numlist} to `r numlist` in a chunck we do not present to the reader) 

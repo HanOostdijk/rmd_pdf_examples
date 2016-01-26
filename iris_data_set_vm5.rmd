@@ -50,3 +50,8 @@ Advantage of working with different child sources is that the global structure i
 ```{r child=childname2}
 ```
 
+# Session Info
+```{r}
+sessionInfo()
+```
+

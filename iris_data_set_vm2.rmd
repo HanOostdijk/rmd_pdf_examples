@@ -1,7 +1,7 @@
 ---
 title: "iris_data_set_vm2 (minimal dependency on LaTeX)"  
 author: "Han Oostdijk (www.hanoostdijk.nl)"
-date: "December 2015"
+date: "January 2016"
 graphics: yes
 output: pdf_document
 ---
@@ -9,7 +9,7 @@ output: pdf_document
 ```{r child='setup.rmd'}
 ```
 
-# Purpose of this example
+# Introduction
 In 'iris_data_set_vm1.rmd', where we did not use Latex, we could not use references to figures and tables.
 Here we show how this becomes available when we use Latex (but obviously at the cost of introducing differences in the output formats).  
 The only difference is that we assign labels and captions to the table (the function *def_tab* that is used in *kable* sets the label and caption) and the figure (with the chunk name as label and the contents of *fig.cap* as caption). With the function *ref_tab* we use these labels. *def_tab* and *ref_tab* are defined in the setup chunk.
