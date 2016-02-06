@@ -6,6 +6,6 @@ data(iris)
 iris = iris[order(iris$Sepal.Length,decreasing = TRUE),]
 caption1d = paste('first',numlist, 
   'observations of iris data set in descending order of Sepal.Length')
-kable(iris[1:numlist,],row.names=F, caption=def_tab('r1d',caption1d),
+xtable(iris[1:numlist,],row.names=F, caption=def_tab('r1d',caption1d),
   format='latex', longtable=F)
 ```

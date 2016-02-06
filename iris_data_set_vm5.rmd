@@ -25,7 +25,9 @@ bibliography: mybib.bib
 
 ```{r child='setup.rmd'}
 ```
-
+```{r}
+library(xtable)
+```
 ```{r echo=FALSE,warning=FALSE,message=FALSE}
 # various constants/calculations we do not show in the text
 sortorder = params$sortorder
@@ -40,6 +42,8 @@ numlist =   10 # number of observations in iris data set that is listed
 
 ```
 # Introduction 
+See the Introduction pdf for the various examples and the relation of this example to the others.  
+
 Depending on the parameter \mytextit{sortorder} we will show the first `r numlist` observations of the iris data set sorted in ascending or descending order of the variable \mytextit{Sepal.Length}.
 
 ```{r child=childname1}

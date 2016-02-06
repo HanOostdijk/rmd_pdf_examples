@@ -19,7 +19,7 @@ The following software is necessary :
 * a distribution of R with the **rmarkdown** and **knitr** packages
 * the **Pandoc** software. The **RStudio** environment contains a copy of this software
 * **RStudio** is not necessary but makes this workflow very easy: recommended!
-* and the R packages you want to use: in the examples they are **ggplot2** and **ggthemes**
+* and the R packages you want to use: in the examples they are **xtable**,**ggplot2** and **ggthemes**
 
 # The examples
 ## iris_data_set_vm1.rmd

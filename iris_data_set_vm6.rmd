@@ -28,6 +28,8 @@ knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=enco
 ```
 
 # Introduction 
+See the Introduction pdf for the various examples and the relation of this example to the others.  
+
 This example shows how to print two tables side by side. It makes use of the 
 function \mytextit{print\_table\_sbs} that generates the \LaTeX \ commands that are necessary for this. If this is usable depends on the size of the tables and your eyesight.
 

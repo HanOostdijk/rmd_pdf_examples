@@ -1,7 +1,7 @@
 ---
 title: "iris_data_set_vm1 (no dependency on LaTeX)"  
 author: "Han Oostdijk (www.hanoostdijk.nl)"
-date: "January 2016"
+date: "February 2016"
 graphics: yes
 output: pdf_document
 # output: html_document
@@ -10,7 +10,7 @@ output: pdf_document
 
 ```{r setup, include=FALSE, cache=FALSE,warning=FALSE,message=FALSE} 
 library(knitr)
-options(replace.assign=TRUE,width=90)
+options(replace.assign=TRUE,width=90,xtable.comment = F)
 opts_chunk$set(fig.show='hold',tidy=FALSE,
   fig.width=8,fig.height=8,fig.scap=NA,highlight = T)
 if (identical(knitr:::pandoc_to(), 'latex')) {
@@ -21,6 +21,8 @@ if (identical(knitr:::pandoc_to(), 'html')) knit_hooks$set(plot = hook_plot_html
 ```
 
 # Introduction
+See the Introduction pdf for the various examples and the relation of this example to the others.  
+
 With the rmarkdown format an author can easily specify how a document should be formatted.
 When the final document has to be a pdf-file a Latex installation is required. 
 The rmarkdown (rmd) file can contain all Latex commands that the author thinks necessary.
@@ -33,6 +35,7 @@ The main disadvantage is that internal references to figure and tables are not a
 # Libraries used
 
 ```{r echo=TRUE,warning=FALSE,message=FALSE}
+library(xtable)
 library(ggplot2)
 library(ggthemes)
 ```
@@ -53,7 +56,7 @@ data(iris)
 We list the first `r numlist` (because we set variable *numlist* to `r numlist` in a chunck we do not present to the reader) observations in the data set. 
 
 ```{r results='asis'}
-kable(iris[1:numlist,],row.names=F,longtable=F)
+xtable(iris[1:numlist,],row.names=F,longtable=F)
 ```
 
 # Create a plot of the iris data set

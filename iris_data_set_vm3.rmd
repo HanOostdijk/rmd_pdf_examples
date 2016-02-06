@@ -29,6 +29,8 @@ knit:  (function(inputFile, encoding) {rmarkdown::render(inputFile,encoding=enco
 ```
 
 # Introduction
+See the Introduction pdf for the various examples and the relation of this example to the others.  
+
 In this example we use additional \LaTeX \ packages to
 
 * set the default font to be sans-serif (via include of \mytextbf{header.tex})

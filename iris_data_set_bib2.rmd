@@ -1,7 +1,7 @@
 
 ```{r results='asis'}
 data(iris)
-kable(iris[1:numlist,],row.names=F, caption=def_tab('lbltab1',tabcap1),
+xtable(iris[1:numlist,],row.names=F, caption=def_tab('lbltab1',tabcap1),
   format='latex', longtable=F)
 cat(paste(' #produced',ref_tab('lbltab1',T)))
 p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species))+
