@@ -28,7 +28,7 @@ ref_tab <- function (label_name,table=T,add_page=T,prefix='in') {
   }
   t = sprintf('%s %s\\mytilde\\ref{%s:%s}',prefix, obj1, obj2, label_name)
   if (add_page == T) {
-    t =paste(t,'on page',sprintf('\\mytilde\\pageref{%s:%s}',obj2, label_name))
+    t =paste(t,sprintf('on page\\mytilde\\pageref{%s:%s}',obj2, label_name))
   }
   return(t)
 } 
