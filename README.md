@@ -45,7 +45,7 @@ We have structured these LaTeX commands in three separate groups:
 * in the internal file **extra2.tex** the commands that go in front of the LaTeX body part and are specific for this document.
 In our examples no contents: a candidate for inclusion would be the **\chead** command but because the header is not constant (see next paragraph) we need to use an engine_R chunk and not a engine_cat chunk.
 
-Apart from these LaTeXchanges we also show what can be done in the yaml-header:   
+Apart from these LaTeX changes we also show what can be done in the yaml-header:   
 * define your own parameters by using the *params* keyword:
     + we use the *doc_version* parameter to include a version number in the header of each page
     + we use the *altplot* parameter to change the program flow by changing some text and including or omitting a figure.
