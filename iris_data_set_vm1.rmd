@@ -35,7 +35,6 @@ The main disadvantage is that internal references to figure and tables are not a
 # Libraries used
 
 ```{r echo=TRUE,warning=FALSE,message=FALSE}
-library(xtable)
 library(ggplot2)
 library(ggthemes)
 ```
@@ -56,7 +55,7 @@ data(iris)
 We list the first `r numlist` (because we set variable *numlist* to `r numlist` in a chunck we do not present to the reader) observations in the data set. 
 
 ```{r results='asis'}
-xtable(iris[1:numlist,],row.names=F,longtable=F)
+kable(iris[1:numlist,],row.names=F,longtable=F)
 ```
 
 # Create a plot of the iris data set
