@@ -4,6 +4,7 @@ author: "Han Oostdijk (www.hanoostdijk.nl)"
 date: "February 2016"
 graphics: yes
 output: pdf_document
+linkcolor: blue
 # output: html_document
 # output: word_document
 ---
@@ -30,7 +31,7 @@ This example shows how to create a pdf-file from an rmd-file without any additio
 The advantage of not including Latex commands is that e.g. html or MSWord documents can be created without 
 (nearly any) changes: by changing in the yaml-header **'output: pdf_document'** to **'output: word_document'** or **'output: html_document'** 
 instead of a pdf-document a docx- or html-document is created.  
-The main disadvantage is that internal references to figure and tables are not available. In the next examples we will show how to do this for the pdf case but this introduces a differences between the three document formats.
+The main disadvantage is that internal references to figure and tables are not available. In the next examples we will show how to do this for the pdf case but this introduces a differences between the three document formats. We can however create internal links. E.g. this is a link to the [Session Info](#Session-Info-anchor) section.
 
 # Libraries used
 
@@ -68,7 +69,7 @@ p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) +
 p + labs(title = 'default theme')
 ```
 
-# Session Info
+# Session Info {#Session-Info-anchor}
 ```{r}
 sessionInfo()
 ```

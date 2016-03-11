@@ -23,7 +23,7 @@ The following software is necessary :
 
 # The examples
 ## iris_data_set_vm1.rmd
-In this basic example no additional LaTeX is used. The main advantage is that is trivial to convert the rmd-file to a html- or a docx-format. The main disadvantage is that internal references to figures and tables are not available. 
+In this basic example no additional LaTeX is used. The main advantage is that is trivial to convert the rmd-file to a html- or a docx-format. The main disadvantage is that internal references to figures and tables are not available. However internal linking is (shown) possible.
 
 ## iris_data_set_vm2.rmd
 Here we use the basic LaTeXcommands **\label**, **\ref** and **\pageref** to get the internal references that were missing in the first example.
