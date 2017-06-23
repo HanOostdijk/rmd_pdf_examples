@@ -1,0 +1,79 @@
+---
+title: "iris_data_set_vm7 (ready for html and PDF)"  
+author: "Han Oostdijk (www.hanoostdijk.nl)"
+date: "`r format(Sys.time(), '%d%b%Y')`"
+output:
+  html_document:
+    keep_md: yes
+  bookdown::pdf_document2:
+    keep_tex: yes
+params:
+  myseed: '2017'
+  numlist: 5
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
+```
+
+# Functions that enable captions to figures and tables
+ 
+This document contains two sets of functions in the child chunk *captions_html_latex.rmd*. One set is used for html documents and the other for pdf documents. For pdf documents it does not work with the output *pdf_document* : it is necessary to use *bookdown::pdf_document2* . With the default Pandoc template a table of contents is always produced for this output type. In a later version we will correct this by adapting and using (a copy of) this template. 
+
+We use a child chunk because the code in it is also available for other documents.
+
+```{r child="captions_html_latex.rmd"}
+```
+
+# Defines captions for plot and table
+
+```{r }
+init_caption('Figure','Table')           # indicate prefix for figures and tables
+add_caption("fig1","f","my first plot")  # define a caption for the first (an only) figure
+add_caption("tab1","t","my first table") # define a caption for the first (an only) table
+```
+
+# Libraries used
+
+```{r echo=TRUE,warning=FALSE,message=FALSE}
+library(knitr)
+library(pander)
+library(ggplot2)
+library(ggthemes)
+```
+
+```{r echo=FALSE}
+# constants/calculations we do not show in the text
+numlist  = params$numlist # number of observations in iris data set that is listed
+```
+
+# Load data
+We load the iris data set in the workspace.
+
+```{r}
+data(iris)
+```
+
+# List the part of the iris data set
+We list the first `r numlist` (because we set variable *numlist* to `r numlist` in a chunck we do not present to the reader) observations in the data set. See  `r ref_caption("tab1","t")` `r ref_caption("tab1","t","page")` 
+
+```{r results='asis',comment=""}
+  pandoc.table(iris[1:numlist,],caption=tab_caption("tab1"))
+```
+
+# Create a plot of the iris data set
+Make a *ggplot2* plot object *p* of two variables in the iris data set 
+and use it to create a plot that is shown in `r ref_caption("fig1","f")` `r ref_caption("fig1","f","page")` 
+
+```{r fig1,results='asis',fig.cap=fig_caption("fig1")}
+p <- ggplot(iris, aes(Sepal.Length, Sepal.Width, colour = Species)) + 
+  geom_point() 
+p + labs(title = 'default theme')
+```
+
+# Session Info {#Session-Info-anchor}
+```{r}
+sessionInfo()
+```
+
