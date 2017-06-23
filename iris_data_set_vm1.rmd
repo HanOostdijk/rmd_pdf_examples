@@ -1,12 +1,13 @@
 ---
 title: "iris_data_set_vm1 (no dependency on LaTeX)"  
 author: "Han Oostdijk (www.hanoostdijk.nl)"
-date: "February 2016"
+date: "February 2016 update June 2017"
 graphics: yes
-output: pdf_document
+output: 
+  pdf_document :
+  word_document :
+  html_document :
 linkcolor: blue
-# output: html_document
-# output: word_document
 ---
 
 ```{r setup, include=FALSE, cache=FALSE,warning=FALSE,message=FALSE} 
@@ -30,8 +31,9 @@ The rmarkdown (rmd) file can contain all Latex commands that the author thinks n
 This example shows how to create a pdf-file from an rmd-file without any additional Latex commands.  
 The advantage of not including Latex commands is that e.g. html or MSWord documents can be created without 
 (nearly any) changes: by changing in the yaml-header **'output: pdf_document'** to **'output: word_document'** or **'output: html_document'** 
-instead of a pdf-document a docx- or html-document is created.  
-The main disadvantage is that internal references to figure and tables are not available. In the next examples we will show how to do this for the pdf case but this introduces a differences between the three document formats. We can however create internal links. E.g. this is a link to the [Session Info](#Session-Info-anchor) section.
+instead of a pdf-document a docx- or html-document is created.     
+The main disadvantage is that internal references to figure and tables are not available. In the next examples we will show how to do this for the pdf case but this introduces a differences between the three document formats. We can however create internal links. E.g. this is a link to the [Session Info](#Session-Info-anchor) section.    
+See *Iris_data_set_vm7* for an example that is able to produce both html and pdf files with references to tables and figures. The Latex commands used for this are hidden in some functions.
 
 # Libraries used
 

@@ -19,7 +19,7 @@ The following software is necessary :
 * a distribution of R with the **rmarkdown** and **knitr** packages
 * the **Pandoc** software. The **RStudio** environment contains a copy of this software
 * **RStudio** is not necessary but makes this workflow very easy: recommended!
-* and the R packages you want to use: in the examples they are **xtable**,**ggplot2** and **ggthemes**
+* and the R packages you want to use: in the examples they are **xtable**, **ggplot2** and **ggthemes**
 
 # The examples
 ## iris_data_set_vm1.rmd
@@ -65,28 +65,8 @@ In the last examples we used a parameter to distinguish the two cases: only one 
 However each parameter in a chunk can be an R expression. We use this in the current example: we include child documents where the file name is an R expression dependent on the parameter. The example shows a table where depending on a parameter *sortorder* the observations with the highest or lowest values of the variable *Sepal.Length* are displayed.
 
 ## iris_data_set_vm6.rmd
-In the previous examples we used only a limited amount of LaTeX in our code. In this example we show how to display two or more tables side by side. This is convenient (saves space and avoids turning over pages) when dealing with many small tables. The LaTeX code needed for this was found on [**stackoverflow**](http://stackoverflow.com/questions/23926671/side-by-side-xtables-in-rmarkdown ) by Marcin Kosiński. 
+In the previous examples we used only a limited amount of LaTeX in our code. In this example we show how to display two or more tables side by side. This is convenient (saves space and avoids turning over pages) when dealing with many small tables. The LaTeX code needed for this was contributed to [**stackoverflow**](http://stackoverflow.com/questions/23926671/side-by-side-xtables-in-rmarkdown ) by Marcin Kosiński. 
 In this example we place the two possible tables of the previous example side by side.
 
-## Session Info for created documents
-
-```
-## R version 3.2.0 (2015-04-16)
-## Platform: x86_64-w64-mingw32/x64 (64-bit)
-## Running under: Windows 8 x64 (build 9200)
-##
-## locale:
-## [1] LC_COLLATE=English_United States.1252 LC_CTYPE=English_United States.1252
-## [3] LC_MONETARY=English_United States.1252 LC_NUMERIC=C
-## [5] LC_TIME=English_United States.1252
-##
-## attached base packages:
-## [1] stats graphics grDevices utils datasets methods base
-##
-## other attached packages:
-## [1] knitr_1.11.22
-##
-## loaded via a namespace (and not attached):
-## [1] magrittr_1.5 formatR_1.2.1 tools_3.2.0 htmltools_0.2.6 yaml_2.1.13
-## [6] stringi_1.0-1 rmarkdown_0.8.1 stringr_1.0.0 digest_0.6.8 evaluate_0.8
-```
+## iris_data_set_vm7.rmd
+References to tables and figures are different for html and pdf documents. In this example we show how we can create two sets of functions (one for html and one for pdf document) that can be used for referencing figures and tables. Depending on the type of document one of these sets is used. For the tables we use the package **pander** because it allows the use of captions. For html documents the package **captioner** is used. 

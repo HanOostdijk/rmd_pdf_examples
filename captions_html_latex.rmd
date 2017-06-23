@@ -1,0 +1,85 @@
+```{r echo=F}
+if (out_type == "html") {
+  
+  library(captioner)
+  
+  init_caption <- function(figpref,tabpref) {
+    fig_nums <<- captioner(prefix = figpref) 
+    tab_nums <<- captioner(prefix = tabpref) 
+  }
+  
+  add_caption <- function (name,ft,caption) {
+    if ( tolower(ft) == 'f') {
+      fig_nums(name=name, caption=caption, display = FALSE)
+    } else {
+      tab_nums(name=name, caption=caption, display = FALSE)
+    }
+  }
+  
+  fig_caption <- function (name) {
+    fig_nums(name)
+    
+  }
+  
+  tab_caption <- function (name) {
+    tab_nums(name)
+  }
+  
+  ref_caption <- function (name,ft,page=F,on="on ") {
+    if (page == F) {
+      if ( tolower(ft) == 'f') {
+        fig_nums(name=name, display = "cite")
+      } else {
+        tab_nums(name=name, display = "cite")
+      }
+    } else {
+      ""
+    }
+  }
+  
+} else {
+  library(xtable)
+  options(xtable.comment = FALSE)
+  init_caption <- function(figpref,tabpref) {
+    fig_nums <<- list()
+    tab_nums <<- list()
+  }
+  
+  add_caption <- function (name,ft,caption) {
+    if ( tolower(ft) == 'f') {
+      t <- fig_nums 
+      t[[name]] <- caption
+      fig_nums <<- t
+    } else {
+      t <- tab_nums
+      t[[name]] <- caption
+      tab_nums <<- t
+    }
+  }
+  
+  fig_caption <- function (name) {
+    fig_nums[[name]]
+  }
+  
+  tab_caption <- function (name) {
+    paste0("\\label{",name,"}",tab_nums[[name]] )
+  }
+  
+  
+  ref_caption <- function (name,ft,page=F,on="on ")  {
+    if ( tolower(ft) == 'f') {
+      if (page ==F) {
+        paste0("Figure \\ref{fig:",name,"}")
+      } else {
+        paste0(on,"page \\pageref{fig:",name,"}")
+      }
+    } else {
+      if (page ==F) {
+        paste0("Table \\ref{",name,"}")
+      } else {
+        paste0(on,"page \\pageref{",name,"}")
+      }
+    }
+  }
+}
+```

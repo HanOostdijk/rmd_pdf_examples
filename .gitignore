@@ -8,8 +8,8 @@
 *.Rproj
 
 # intermediate rmarkdown/pandoc/latex files
-extra1.tex
-extra2.tex
+#extra1.tex
+#extra2.tex
 *_files
 
 # produced vignettes
