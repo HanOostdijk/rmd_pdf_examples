@@ -118,14 +118,14 @@ $(document).ready(function () {
 
 <h1 class="title toc-ignore">iris_data_set_vm7 (ready for html and PDF)</h1>
 <h4 class="author"><em>Han Oostdijk (www.hanoostdijk.nl)</em></h4>
-<h4 class="date"><em>22Jun2017</em></h4>
+<h4 class="date"><em>25Jun2017</em></h4>
 
 </div>
 
 
 <div id="functions-that-enable-captions-to-figures-and-tables" class="section level1">
 <h1>Functions that enable captions to figures and tables</h1>
-<p>This document contains two sets of functions in the child chunk <em>captions_html_latex.rmd</em>. One set is used for html documents and the other for pdf documents. For pdf documents it does not work with the output <em>pdf_document</em> : it is necessary to use <em>bookdown::pdf_document2</em> . With the default Pandoc template a table of contents is always produced for this output type. In a later version we will correct this by adapting and using (a copy of) this template.</p>
+<p>This document contains two sets of functions in the child chunk <em>captions_html_latex.rmd</em>. One set is used for html documents and the other for pdf documents. For pdf documents it does not work with the output <em>pdf_document</em> so it is necessary to use <em>bookdown::pdf_document2</em> . With the (default) Pandoc template for this output type a table of contents is produced. The table of contents can be omitted by specifying <strong>toc:no</strong> in the yaml header.</p>
 <p>We use a child chunk because the code in it is also available for other documents.</p>
 </div>
 <div id="defines-captions-for-plot-and-table" class="section level1">

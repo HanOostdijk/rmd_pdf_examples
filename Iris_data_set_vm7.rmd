@@ -7,6 +7,10 @@ output:
     keep_md: yes
   bookdown::pdf_document2:
     keep_tex: yes
+    toc: no
+    includes:
+      in_header: 
+      - extra1.tex
 params:
   myseed: '2017'
   numlist: 5
@@ -19,7 +23,7 @@ out_type <- knitr::opts_knit$get("rmarkdown.pandoc.to")
 
 # Functions that enable captions to figures and tables
  
-This document contains two sets of functions in the child chunk *captions_html_latex.rmd*. One set is used for html documents and the other for pdf documents. For pdf documents it does not work with the output *pdf_document* : it is necessary to use *bookdown::pdf_document2* . With the default Pandoc template a table of contents is always produced for this output type. In a later version we will correct this by adapting and using (a copy of) this template. 
+This document contains two sets of functions in the child chunk *captions_html_latex.rmd*. One set is used for html documents and the other for pdf documents. For pdf documents it does not work with the output *pdf_document* so it is necessary to use *bookdown::pdf_document2* . With the (default) Pandoc template for this output type a table of contents is produced. The table of contents can be omitted by specifying **toc:no** in the yaml header.
 
 We use a child chunk because the code in it is also available for other documents.
 
