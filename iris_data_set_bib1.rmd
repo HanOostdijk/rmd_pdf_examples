@@ -17,9 +17,9 @@
 ```
 
 ```{r engine='cat', engine.opts=list(file='extra2.tex')}
-% hoqc start inserted extra2.tex (via yaml 'in_header:')
+% hoqc start inserted extra2.tex (via yaml 'before_body:')
 % not used here
-% hoqc end   inserted extra2.tex (via yaml 'in_header:')
+% hoqc end   inserted extra2.tex (via yaml 'before_body:')
 ```
 
 ```{r setheader, eval= T,echo=F, results='asis'}
