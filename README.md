@@ -15,7 +15,7 @@ This button-click executes the following workflow:
 * the tex-file is converted by LaTeX to a pdf-file
 
 The following software is necessary :   
-* a distribution of the typesetting system LaTeX. Working on Windows I use MiKTeX
+* a distribution of the typesetting system LaTeX. Working on Windows I used **MiKTeX**, but currently I am using **TinyTeX**
 * a distribution of R with the **rmarkdown** and **knitr** packages
 * the **Pandoc** software. The **RStudio** environment contains a copy of this software
 * **RStudio** is not necessary but makes this workflow very easy: recommended!
@@ -65,8 +65,12 @@ In the last examples we used a parameter to distinguish the two cases: only one 
 However each parameter in a chunk can be an R expression. We use this in the current example: we include child documents where the file name is an R expression dependent on the parameter. The example shows a table where depending on a parameter *sortorder* the observations with the highest or lowest values of the variable *Sepal.Length* are displayed.
 
 ## iris_data_set_vm6.rmd
-In the previous examples we used only a limited amount of LaTeX in our code. In this example we show how to display two or more tables side by side. This is convenient (saves space and avoids turning over pages) when dealing with many small tables. The LaTeX code needed for this was contributed to [**stackoverflow**](http://stackoverflow.com/questions/23926671/side-by-side-xtables-in-rmarkdown ) by Marcin Kosiński. 
+In the previous examples we used only a limited amount of LaTeX in our code. In this example we show how to display two or more tables side by side. This is convenient (saves space and avoids turning over pages) when dealing with many small tables. The LaTeX code needed for this was contributed to [**Stack Overflow**](http://stackoverflow.com/questions/23926671/side-by-side-xtables-in-rmarkdown ) by Marcin Kosiński. 
 In this example we place the two possible tables of the previous example side by side.
 
 ## iris_data_set_vm7.rmd
 References to tables and figures are different for html and pdf documents. In this example we show how we can create two sets of functions (one for html and one for pdf document) that can be used for referencing figures and tables. Depending on the type of document one of these sets is used. For the tables we use the package **pander** because it allows the use of captions. For html documents the package **captioner** is used. 
+
+## flexknit.Rmd and myknit.R
+In this example we show a function that is executed when the `knit` button is clicked. This happens by specifying the **knit** option in the yaml metadata block. With this function (that has been named *myknit*) and some additional yaml options the user can specify a different name (and folder) for the output with optional version number. Also a copy of the input file with that version number can be created. In this way an output folder with various versions of the inputs and outputs can be created.    
+
