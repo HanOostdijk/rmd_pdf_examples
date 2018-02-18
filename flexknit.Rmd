@@ -7,7 +7,7 @@ output              :
     keep_tex        : yes
   # html_document     :
   #   keep_md         : yes
-classoption         : portrait # orlandscape 
+classoption         : portrait # or landscape 
 # do not place blanks between geometry and ':' or the option will be ignored !
 geometry: [
   left=0.6in ,
@@ -15,6 +15,7 @@ geometry: [
   top=1in ,
   bottom=1in
   ]
+# comment following lines if you do not want to use sans serif monotype
 header-includes     : [
   '\usepackage[scaled]{DejaVuSansMono}' ,
   '\renewcommand*{\familydefault}{\sfdefault}' 
