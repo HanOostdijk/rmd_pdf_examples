@@ -55,6 +55,8 @@ myknit <- function (inputFile, encoding) {
 		# write new input to the indicated file
 		writeLines(rmd, hoqc_copy)
 	}
+	else 
+		hoqc_copy <- ''
 	# if requested create file with original yaml contents
 	if (!is.null(values[['hoqc_yaml']])) {
 		hoqc_yaml <- values[['hoqc_yaml']]
@@ -81,7 +83,8 @@ myknit <- function (inputFile, encoding) {
 		hoqc_output = myknit_force_ext(hoqc_output, doc_type, hoqc_force_ext, hoqc_version)
 	}
 	else
-		hoqc_output = myknit_force_ext(inputFile, doc_type, hoqc_force_ext, hoqc_version)
+		inputFileb <-strsplit(inputFile, '.', fixed = T)[[1]][1]
+		hoqc_output = myknit_force_ext(inputFileb, doc_type, hoqc_force_ext, hoqc_version)
 	# create the additional params lines
 	#   ensure that all options have the same length after padding
 	hoqc_items <- str_pad(hoqc_items,max(sapply(hoqc_items,str_length)),side='right')
