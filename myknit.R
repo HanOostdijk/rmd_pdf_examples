@@ -82,9 +82,10 @@ myknit <- function (inputFile, encoding) {
 		hoqc_output = values[['hoqc_output']]
 		hoqc_output = myknit_force_ext(hoqc_output, doc_type, hoqc_force_ext, hoqc_version)
 	}
-	else
+	else {
 		inputFileb <-strsplit(inputFile, '.', fixed = T)[[1]][1]
 		hoqc_output = myknit_force_ext(inputFileb, doc_type, hoqc_force_ext, hoqc_version)
+	}
 	# create the additional params lines
 	#   ensure that all options have the same length after padding
 	hoqc_items <- str_pad(hoqc_items,max(sapply(hoqc_items,str_length)),side='right')
