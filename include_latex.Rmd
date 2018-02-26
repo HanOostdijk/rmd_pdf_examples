@@ -1,0 +1,112 @@
+---
+knit:  (function (...) { source('myknit.r'); myknit(...) })
+title: "Including \\LaTeX \\ statements"
+author: "Han Oostdijk"
+date: "file created : `r format(Sys.time(), '%d%b%Y')`"
+output:
+  pdf_document:
+    keep_tex: yes
+    latex_engine: pdflatex
+    template: default-1.17.0.2-hoqc.tex
+    includes:
+      in_header:  hoqc_inh.tex 
+      before_body: 
+        - hoqc_bef.tex
+      after_body: hoqc_aft.tex
+  html_document: default
+classoption: portrait
+header-includes2 : [
+# how to get a comment (%) in the tex file  ??
+	'\renewcommand*{\familydefault}{\sfdefault}'  
+	, '\usepackage[scaled]{DejaVuSansMono}'  
+	, '\usepackage[margin=0.5in]{geometry}'
+	]
+include-before2 : [
+	  '\textbf{\large This line inserted with the \textit{include-before2} yaml option}' 
+	]
+include-after2 : [
+	  '\textbf{\large This line inserted with the \textit{include-after2} yaml option}' 
+	]
+hoqc_output: './output/include_latex' 
+hoqc_yaml: yaml.txt
+linkcolor: blue
+---
+ 
+```{r hoqc_inh,engine='cat', engine.opts=list(file='hoqc_inh.tex')}
+% hoqc start inserted hoqc_inh.tex in header (preamble) (via yaml 'in_header:')
+% not used here
+% hoqc end   inserted hoqc_inh.tex (via yaml 'in_header:')
+``` 
+  
+```{r hoqc_bef,engine='cat', engine.opts=list(file='hoqc_bef.tex')}
+% hoqc start inserted hoqc_bef.tex in start of body (via yaml 'before_body:')
+% not used here
+% hoqc end   inserted hoqc_bef.tex (via yaml 'before_body:')
+``` 
+
+```{r hoqc_aft,engine='cat', engine.opts=list(file='hoqc_aft.tex')}
+% hoqc start inserted hoqc_aft.tex at end of body (via yaml 'after_body:')
+% not used here
+% hoqc end   inserted hoqc_aft.tex (via yaml 'after_body:')
+``` 
+
+## Including \LaTeX \ statements in an R Markdown document
+Creating a pdf document with the R package **rmarkdown** is done with the following steps:
+
+- package **knitr** is used to convert the *Rmd* document to an *md* document by 'replacing'  all R code by its results
+- **pandoc** is called to convert the *md* document to a *tex* document
+- the *tex* document is converted to a *pdf* file with a **TeX toolset** such as MikTex, Tex Live 
+
+This document describes some options in *R Markdown* that we have to include \LaTeX \ statements in the *tex document*. They are listed in Table \ref{my_table1}. With the current default **pandoc** template (default-1.17.0.2.tex) the options marked with `A` and `B` are available. The template default-1.17.0.2-hoqc.tex adds to these the options under `C`.  
+
+---------------------------------------------------------------------------------------------
+						  A                            B                           C 
+						            
+------------ ---------------------------- --------------------------- -----------------------
+						  in_header                    header-includes             header-includes2 
+						
+						  before_body                  include-before              include-before2  
+						  
+						  after-body                   include-after               include-after2 
+
+**remarks:**      
+						   
+              yaml on pdf level            yaml on global              yaml on global 
+					    with '*includes:*'           level                       level
+					       
+						  points to tex                contains tex                contains tex  
+						  file                         lines                       lines
+						  
+						  overwrites B                 overwritten                 **not**   
+						                               by A                        overwritten by A
+						     
+---------------------------------------------------------------------------------------------
+
+Table: Options for including tex statements in *rmarkdown* document \label{my_table1}
+
+[//1]: # (seen in Stack Exchange entry https://tex.stackexchange.com/questions/139106/referencing-tables-in-pandoc by user44431 )
+
+The name of the options indicate where the \LaTeX \ statements will be placed. The 'header' options will be placed at the end of the header (or preamble) and the other options at the start or the end of the text (or body) section of the *tex* document. The remarks in the table indicate briefly the difference between the `A`, `B` and `C` versions.  
+
+With the `A` version the user can point to files containing the \LaTeX \ statements. This is useful when the same statements are often used or when there are a lot of them. Because the **knitr** step is completed before the running of the **tex** step it is possible to create the inputs dynamically by R code (as is shown in the *Rmd* code of this document).  
+The *yaml* specification (on pdf level) in the *Rmd* code (two different methods of specification are shown) point to the file with \LaTeX \ statements where the `B` and `C` versions contain the statements themselves. And be aware that a `A` specification overrules the statements in a similar `B` (but not a `C`) specification.
+
+The `B` and `C` version are the same apart from the fact that `C` specifications can be used alongside `A`. The specification have to be given on the global level and not on pdf level. An example of using the `A` and `C` version together is shown in this document and visible in the *yaml* metadata block that is listed in the next section \small{(with the help of the \textit{myknit} functionality described in the \textit{flexknit} entry)}.
+
+## yaml used in this document
+
+```{r echo=F,results='markup',comment=' ' }
+cat(paste0(readLines(params$hoqc_yaml),collapse = '\n'))
+```
+## Listing of the *in_header* file used in this document
+
+```{r echo=F,results='markup',comment=' ' }
+cat(paste0(readLines('hoqc_inh.tex'),collapse = '\n'))
+```
+
+## Session Info
+
+```{r echo=F,results='latex',comment=' ' }
+sessionInfo()
+```
+
