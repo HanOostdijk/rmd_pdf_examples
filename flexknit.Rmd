@@ -26,7 +26,7 @@ hoqc_version        : _v1
 hoqc_output         : './output/Flex Knit' 
 hoqc_yaml           : ./output/yaml
 hoqc_yaml_new       : ./output/yaml_new
-hoqc_copy           : ./output/flexknit.Rmd
+hoqc_rmd_in         : ./output/flexknit.Rmd
 hoqc_force_ext      : yes
 knit                : (function (...) { source('myknit.R'); myknit(...) })
 # do not place blanks between params and ':' !
@@ -62,7 +62,8 @@ The `myknit` function is controlled by additional options in the yaml metadata b
 - `hoqc_force_ext  (F)` : should a filename extension be forced for document and yaml files? (`TRUE` or `FALSE`)
 - `hoqc_yaml      ('')` : the name of file containing the original yaml metadata block
 - `hoqc_yaml_new  ('')` : the name of file containing the new (modified) yaml metadata block
-- `hoqc_copy      ('')` : the name of file containing a copy of the input file
+- `hoqc_rmd_in    ('')` : the name of file containing a copy of the input file
+- `hoqc_rmd_out   ('')` : the name of file of the processed input file (just before rendering)
 
 The output document will in principle be named `hoqc_output` if this is specified; otherwise it is named after the input file. If `hoqc_output` is specified without an extension and `hoqc_force_ext == T` then the output name will be given an extension of `pdf` or `html` depending on the (first encountered, not commented) document_type. `hoc_version` will be inserted after the basename of the file. 
 
@@ -70,7 +71,7 @@ The orginal yaml metadata block will be written to an output file with name `hoq
 After reading the orginal yaml metadata block comment lines (beginning with `#`) are removed. 
 The modified yaml metadata block will be written to an output file with name `hoqc_yaml_new` if this is specified. In both yaml file names the `hoc_version` will be inserted and a `txt` extension will be given when an extension was not specified and `hoqc_force_ext == T`.  
 
-A copy of the input file is created with name `hoqc_copy` if this is specified. The `hoc_version` will be inserted and a `Rmd` extension will be given when an extension was not specified and `hoqc_force_ext == T`. 
+A copy of the input file is created with name `hoqc_rmd_in` if this is specified. The `hoc_version` will be inserted and a `Rmd` extension will be given when an extension was not specified and `hoqc_force_ext == T`. When `hoqc_rmd_out` is specified the same holds for the processed input file that is used for the actual rendering.
 
 In the modified metadata block the additional options are included (added if it already exists) in the `params` block. The name of the output files are expanded to the full path. The next paragraph shows how the `params` block can be used to include e.g. the yaml metadata block in the document by specifying `r` `params$hoqc_yaml` within backticks. 
 
