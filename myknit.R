@@ -47,8 +47,7 @@ myknit <-
 		# insert params: hoqc_version
 		if (!is.null(values[['hoqc_version']])) {
 			hoqc_version = values[['hoqc_version']]
-		}
-		else {
+		} else {
 			hoqc_version = ''
 		}
 		if (!is.null(values[['hoqc_force_ext']]))
@@ -62,16 +61,14 @@ myknit <-
 				myknit_force_ext(hoqc_rmd_in, 'Rmd', TRUE, hoqc_version)
 			# write new input to the indicated file
 			writeLines(rmd, hoqc_rmd_in)
-		}
-		else
+		} else
 			hoqc_rmd_in <- ''
 		# if requested create file with copy of Rmd input
 		if (!is.null(values[['hoqc_rmd_out']])) {
 			hoqc_rmd_out <- values[['hoqc_rmd_out']]
 			hoqc_rmd_out <-
 				myknit_force_ext(hoqc_rmd_out, 'Rmd', TRUE, hoqc_version)
-		}
-		else
+		} else
 			hoqc_rmd_out <- ''
 		
 		# if requested create file with original yaml contents
@@ -81,8 +78,7 @@ myknit <-
 				myknit_force_ext(hoqc_yaml, 'txt', hoqc_force_ext, hoqc_version)
 			# write new input to the indicated file
 			writeLines(yaml_org, hoqc_yaml)
-		}
-		else
+		} else
 			hoqc_yaml <- ''
 		# if requested create file to contain new yaml contents
 		if (!is.null(values[['hoqc_yaml_new']])) {
@@ -91,16 +87,14 @@ myknit <-
 				myknit_force_ext(hoqc_yaml_new, 'txt', hoqc_force_ext, hoqc_version)
 			# because yaml will be extended with params do not yet write to the file
 			# writeLines(yaml, hoqc_yaml_new)
-		}
-		else
+		} else
 			hoqc_yaml_new <- ''
 		# determine output name for pdf or html file
 		if (!is.null(values[['hoqc_output']])) {
 			hoqc_output = values[['hoqc_output']]
 			hoqc_output = myknit_force_ext(hoqc_output, doc_type, hoqc_force_ext, hoqc_version, 
 				hoqc_render = hoqc_render)
-		}
-		else {
+		} else {
 			inputFileb <- strsplit(inputFile, '.', fixed = T)[[1]][1]
 			hoqc_output = myknit_force_ext(inputFileb, doc_type, hoqc_force_ext, hoqc_version, 
 				hoqc_render = hoqc_render)
@@ -134,8 +128,7 @@ myknit <-
 			yaml   <-
 				append(yaml, c('params: ', paste0('  ', hoqc_parms)), after = tail(nbline, 1) -
 						1)
-		}
-		else {
+		} else {
 			# when params line found then add hoqc_* lines at the end of the params block
 			nbline <- head(nbline[nbline > parmline[1]], 1)
 			lpline <- yaml[nbline - 1]
@@ -234,11 +227,9 @@ myknit_search2 <- function(after_colon) {
 	# find option value
 	if (str_detect(after_colon, "\'")) {
 		value <- str_match(after_colon, "[\']([^\']*)[\']")
-	}
-	else if (str_detect(after_colon, '\"')) {
+	} else if (str_detect(after_colon, '\"')) {
 		value <- str_match(after_colon, '[\"]([^\"]*)[\"]')
-	}
-	else {
+	} else {
 		value <- str_match(after_colon, '([^ #]*)')
 	}
 	value[1, 2]
