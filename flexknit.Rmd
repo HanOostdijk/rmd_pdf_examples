@@ -17,11 +17,11 @@ geometry: [
   ]
 # comment following lines if you do not want to use sans serif monotype
 header-includes     : [
-  '\usepackage[scaled]{DejaVuSansMono}' ,
+#  '\usepackage[scaled]{DejaVuSansMono}' ,
   '\renewcommand*{\familydefault}{\sfdefault}' 
   ]
 urlcolor            : blue
-hoqc_version        : _v1
+hoqc_version        : "`r format(Sys.time(), '_%Y%m%d')`"
 # hoqc_ filenames can have a path
 hoqc_output         : './output/Flex Knit' 
 hoqc_yaml           : ./output/yaml
@@ -58,7 +58,7 @@ By specifying additional options in the yaml metadata block the user can do one 
 The `myknit` function is controlled by additional options in the yaml metadata block. To distinguish these options from the regular ones, they are prefixed with `hoqc_`. The additional options (with defaults in parentheses) are:  
 
 - `hoqc_output    ('')` : the name of the output document file
-- `hoc_version    ('')` : suffix to be given to files to indicate version
+- `hoqc_version   ('')` : suffix to be given to files to indicate version
 - `hoqc_force_ext  (F)` : should a filename extension be forced for document and yaml files? (`TRUE` or `FALSE`)
 - `hoqc_yaml      ('')` : the name of file containing the original yaml metadata block
 - `hoqc_yaml_new  ('')` : the name of file containing the new (modified) yaml metadata block
@@ -69,7 +69,7 @@ The output document will in principle be named `hoqc_output` if this is specifie
 
 The orginal yaml metadata block will be written to an output file with name `hoqc_yaml` if this is specified.
 After reading the orginal yaml metadata block comment lines (beginning with `#`) are removed. 
-The modified yaml metadata block will be written to an output file with name `hoqc_yaml_new` if this is specified. In both yaml file names the `hoc_version` will be inserted and a `txt` extension will be given when an extension was not specified and `hoqc_force_ext == T`.  
+The modified yaml metadata block will be written to an output file with name `hoqc_yaml_new` if this is specified. In both yaml file names the `hoqc_version` will be inserted and a `txt` extension will be given when an extension was not specified and `hoqc_force_ext == T`.  
 
 A copy of the input file is created with name `hoqc_rmd_in` if this is specified. The `hoc_version` will be inserted and a `Rmd` extension will be given when an extension was not specified and `hoqc_force_ext == T`. When `hoqc_rmd_out` is specified the same holds for the processed input file that is used for the actual rendering.
 
@@ -78,12 +78,19 @@ In the modified metadata block the additional options are included (added if it 
 A usage scenario for working with LaTeX could be:  
 
 - set `hoqc_output` and `hoqc_copy` e.g. to `./output/flexkit` and `keep_tex` to `yes` 
-- set `hoc_version` to `_v1` and knit the file. 
-- set `hoc_version` to `_v2`, make some changes and knit again 
+- set `hoqc_version` to `_v1` and knit the file. 
+- set `hoqc_version` to `_v2`, make some changes and knit again  
 
 Intermediate folders will be created if necessary.
 
 In the `output` subfolder one now can find for both versions the saved inputs (`flexknit_v1.Rmd` and `flexknit_v2.Rmd`) and the corresponding `tex` files and `pdf` files (with version indicators). When something is not working as expected one can compare the various versions to see what is wrong. In this way I saw that the yaml options for `geometry` and `params` do not allow blanks between the options and the colon.
+
+NB: from June 2018 onwards the options in myknit.R can also be R expressions (e.g. containing a date): 
+Example:  
+hoqc_version        : ``"`r knitr::inline_expr("format(Sys.time(), '_%Y%m%d')","md")`"`` will be resolved into  
+hoqc_version        : "`r format(Sys.time(), '_%Y%m%d')`"  
+NBNB: While preparing this example I noticed that the `` ` `` (back tick) was not printed with the 
+*DejaVuSansMono* font.
 
 ## Listing of the yaml metadata blocks
 As an example the original yaml (in `r params$hoqc_yaml`) for this document will be shown:
