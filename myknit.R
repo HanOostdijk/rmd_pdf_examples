@@ -37,7 +37,7 @@ myknit <-
 				'hoqc_rmd_out' , 
 				'hoqc_render' 
 			)
-		# read the values of the hoqc_write_yaml options
+		# read the values of the hoqc_* options and remove the options from yaml
 		values     <- list()
 		for (hoqc_item in hoqc_items) {
 			mks <- myknit_search(yaml, hoqc_item)
@@ -203,34 +203,58 @@ myknit_force_ext <- function (filename, doc_type, tf, suffix, hoqc_render=TRUE) 
 }
 
 myknit_search <- function(yaml, yaml_keyword) {
-	value   <- NULL
-	# prepare grep pattern
-	g1      <- sprintf('%s[ ]*:[ ]*', yaml_keyword)
-	# look for keyword
-	ofound	<- str_which(yaml, g1)
-	# if there is exactly one such line then retrieve its value
-	if (length(ofound) == 1) {
-		# the hoqc_output line
-		keyline <- yaml[ofound]
-		# the part after the colon
-		after_colon <- str_match(keyline, paste0(g1, '(.*)'))[1, 2]
-		# retrieve the value
-		value <- myknit_search2(after_colon)
-		# remove the line containing the keyword
-		yaml <- yaml[-ofound]
-	}
-	# return the keyword value and the yaml without the keyword line
-	list('new_yaml' = yaml, 'value' = value)
+  # read the values of the keyword and remove the keyword line from yaml
+  value   <- NULL
+  # prepare grep pattern
+  g1      <- sprintf('%s[ ]*:[ ]*', yaml_keyword)
+  # look for keyword
+  ofound	<- str_which(yaml, g1)
+  # if there is exactly one such line then retrieve its value
+  if (length(ofound) == 1) {
+    # the hoqc_output line
+    keyline <- yaml[ofound]
+    # the part after the colon
+    after_colon <- str_match(keyline, paste0(g1, '(.*)'))[1, 2]
+    # retrieve the value
+    value <- myknit_search2(after_colon)
+    # remove the line containing the keyword
+    yaml <- yaml[-ofound]
+  }
+  # return the keyword value and the yaml without the keyword line
+  list('new_yaml' = yaml, 'value' = value)
 }
 
 myknit_search2 <- function(after_colon) {
-	# find option value
-	if (str_detect(after_colon, "\'")) {
-		value <- str_match(after_colon, "[\']([^\']*)[\']")
-	} else if (str_detect(after_colon, '\"')) {
-		value <- str_match(after_colon, '[\"]([^\"]*)[\"]')
-	} else {
-		value <- str_match(after_colon, '([^ #]*)')
-	}
-	value[1, 2]
+  # find option value
+  # comments refer to cases in test_myknit_search
+  if (str_detect(after_colon, "\"`[rR]")) {        #keyword5
+    value <- str_match(after_colon,  "\"`[rR]([^`]*)`\"")
+    value[[2]] = eval(parse(text=value[[2]]))
+  } else if (str_detect(after_colon, "\'`[rR]")) { #keyword4
+    value <- str_match(after_colon,  "\'`[rR]([^`]*)`\'")
+    value[[2]] = eval(parse(text=value[[2]]))
+  } else if (str_detect(after_colon, "\'")) {      #keyword2
+    value <- str_match(after_colon, "[\']([^\']*)[\']")
+  } else if (str_detect(after_colon, '\"')) {      #keyword1
+    value <- str_match(after_colon, '[\"]([^\"]*)[\"]')
+  } else {                                         #keyword0 and keyword3
+    value <- str_match(after_colon, '([^ #]*)')
+  }
+  value[2]
+}
+
+test_myknit_search <- function (){
+  # test function for the various cases in myknit_search
+  yaml <- c('keyword1 : "ni hao"',
+    "keyword2:  'hello'",
+    "keyword3:  hallo",
+    "keyword4:'`r format(Sys.time(), \'_%Y%m%d\')`'",
+    'keyword5:"`r format(Sys.time(), \"_%Y%m%d\")`"'
+  )
+  print(myknit_search(yaml,'keyword0'))
+  print(myknit_search(yaml,'keyword1'))
+  print(myknit_search(yaml,'keyword2'))
+  print(myknit_search(yaml,'keyword3'))
+  print(myknit_search(yaml,'keyword4'))
+  print(myknit_search(yaml,'keyword5'))
 }
