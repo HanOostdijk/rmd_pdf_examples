@@ -60,7 +60,7 @@ cat('\\end{table}')
 We will create two tables in R and use package \mytextbf{xtable} to write the \LaTeX \  representation to a tex-file. We use the iris data set as an example and will sort it in  ascending and descending order (by the variable \mytextit{Sepal.Length}). Because that is  twice (nearly) the same code we have created the function \mytextit{create\_xtable} to do this. In the function we select only the first/last `r numlist` observations.    
 However the only important line is  \mytextit{print(xtable(. . . floating=FALSE)} .  
 The function \mytextit{print\_table\_sbs} will take the two files and print them side by side  if that fits. Otherwise the second table will be positioned below the first one.
-`r ref_tab('r1a',prefix='')` we will show the `r numlist` observations with the smallest and `r ref_tab('r1b',prefix='',add_page=F)` the ones with the greatest \mytextit{Sepal.Length}. 
+`r ref_tab('r1a',prefix='In')` we will show the `r numlist` observations with the smallest and `r ref_tab('r1b',prefix='in',add_page=F)` the ones with the greatest \mytextit{Sepal.Length}. 
 ```{r,warning=F,message=F}
 library(xtable)
 create_xtable<- function (decreasing,numlist,filename) {
