@@ -1,0 +1,21 @@
+.mycap {
+  font-size: 0.9em;
+  font-style: italic;
+  color: grey;
+}
+
+.figure {
+  text-align: center;
+}
+
+table {
+  margin: auto;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+th, td {
+  padding: 4px;
+}

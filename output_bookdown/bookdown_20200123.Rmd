@@ -1,0 +1,222 @@
+---
+title: "Bookdown with a single document"
+knit: HOQCutil::myknit
+hoqc_version        : "`r format(Sys.time(), '_%Y%m%d')`"
+hoqc_output         : ./output/bookdown
+hoqc_rmd_in         : ./output/bookdown
+author: "Han Oostdijk"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+bibliography:
+- book.bib
+- packages.bib
+biblio-style: apalike
+link-citations: yes
+linkcolor: blue
+output:
+  bookdown::pdf_document2:
+    toc: false
+    keep_tex: false
+    includes:
+      in_header: preamble.tex
+    latex_engine: xelatex
+    citation_package: natbib
+  bookdown::html_document2: 
+    toc: true
+    keep_md: false
+    css: [
+     style.css,
+     mycss.css
+     ]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+ifelse(knitr::is_latex_output(),
+       options("xtable.type"='latex'),
+       options("xtable.type"='html'))
+options("xtable.comment"=FALSE)
+```
+
+```{r echo=F}
+figa = "My *first* figure"
+figb = "My *second* figure"
+```
+
+## Intro {-#intro}
+
+With this document I am experimenting with the  **bookdown** package [@R-bookdown], which was built on top of R Markdown and **knitr** [@xie2015]. At the moment I see no reason to compile a book, but I think it useful to have the features of  **bookdown** available for producing a single `html` or `pdf` document.  
+
+After I had finished my experiments I tried to document what I had done and why. Unhappily I could not retrace the document (not changed by me) that served as a starting point. But most probably it must have been authored by [Yihui Xie](https://yihui.name). I have said it earlier, but I appreciate his work very much.  
+
+I changed the original document (that was a kind of template that showed some possibilities) to be able to:  
+
+- produce a text that would display well in both `html` and `pdf` format. I could not do this without including some switches related to the output format using `knitr::is_latex_output` and  `knitr::is_html_output` 
+- produce tables and figure with a caption **below** the table or figure with a possiblity to reference them
+- use `css` files to ensure that the table entries are not too close to the borders and that the tables with caption are **centered** in the `html` output. See the `mycss.css` file
+- use [text references](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#text-references) to refer to a text (optionally with special `html` or `latex` characters). This is used here only for the tables. Note that [a text reference must be in a separate paragraph with empty lines above and below it](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#text-references) 
+- integrate the possibilities that the `myknit` function (from the [HOQCutil](https://github.com/HanOostdijk/HOQCutil) package) [@HOQCutil] offers to produce documents with a version number
+- use references to a bibliography and sections of text (see the files `book.bib` and `packages.bib`)
+- change the font of the `pdf` document to a non-serif one (see the `preamble.tex` file)
+- try out methods to make the document self describing concerning the creation of tables and figures. In doing this I relied heavily on the concept of [zero-width space](https://raw.githubusercontent.com/yihui/knitr-examples/master/065-rmd-chunk.Rmd). See the `.Rmd` file in a text editor that is capable of showing zero-width spaces such as the RStudio IDE
+
+So the following text is a mix of the original document and changes that I made to test if these objective could be met.
+
+## R Markdown {-#rmarkdown}
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.  
+
+Note that I changed the document to include the `knit` statement in the `YAML` prefix. That is why it is no longer possible to indicate if the `html` or '`pdf` version should be knitted: clicking the button just executes the first output format specified. If you want to produce the second one, you have to change the order by manually 'cut and paste'.
+
+## Including a table {-#including-a-table}
+
+**Coding like this:**
+
+    (​ref:taba) My *first* table is a very small table 
+    
+    `​``{r cars,results='asis'} 
+     print(
+      xtable::xtable(summary(cars)
+        ,caption='(\\#​tab:cars) (​ref:taba)'  
+      )
+      ,include.rownames =F
+      ,html.table.attributes = 'width=70%'
+     )  
+    `​`` 
+    The resulting table can be found in Table \@ref​(tab:cars). 
+    
+    
+**prints the code, the table and the following output:**
+
+(ref:taba) My *first* table is a very small table  
+
+```{r cars,results='asis'}
+print(
+  xtable::xtable(summary(cars)
+    ,caption='(\\#tab:cars) (ref:taba)'  
+    )
+  ,include.rownames =F
+  ,html.table.attributes = 'width=70%'
+  )     
+```
+
+The resulting table can be found in Table \@ref(tab:cars).  
+
+**end of table output**
+
+Note that the `width` attribute only works in html output. And in case of latex output the placement of tables and figures is determined by the latex software. Therefore we can not garantee that the table output is indeed displayed before the **end of table output** line.
+
+The code used can be packed in the following function: 
+
+```{r}
+print_df <- function(df,cap,
+     include.rownames=F,html.table.attributes = '',
+     type='latex',comment=T) {
+  chunk_opts=knitr::opts_current$get()
+  caption = paste0('(\\#tab:',chunk_opts$label,') ',cap )
+  print(
+  xtable::xtable(df,caption=caption)
+  ,type = getOption("xtable.type",type) # set in setup chunk
+  ,include.rownames =include.rownames
+  ,html.table.attributes = html.table.attributes
+  ,comment=getOption("xtable.comment",comment) # set in setup chunk
+  )  
+}
+```
+Note that I have set the options `xtable.type` and `xtable.comment` in the `knitr` setup chunk: the first depending on the type of document that is produced (so depending on the first output format in the `YAML` header) and the second fixed to `FALSE`. Even while it is fixed here, I wanted to leave open the option to use the function elsewhere and therefore parameterised these values.
+
+This function can then be called in the following way:
+
+(ref:taba2) Same contents as Table \@ref(tab:cars) but different width 
+
+    (​ref:taba2) Same contents as Table \@​ref(tab:cars) but different width  
+       
+    `​``{r cars2,results='asis'}  
+    print_df(summary(cars),cap='(​ref:taba2)',html.table.attributes = 'width=50%')  
+    `​``  
+    The resulting table can be found in Table \@ref​(tab:cars2).
+
+```{r cars2,results='asis',eval=T,echo=F}
+print_df(summary(cars),cap='(ref:taba2)',html.table.attributes = 'width=50%')   
+```  
+The resulting table can be found in Table \@ref(tab:cars2).
+
+```{r echo=F,eval=knitr::is_latex_output(),results='asis'}
+cat('Note that in the \\LaTeX output the width is not changed by html.table.attributes!')
+cat('\\newpage')
+```
+
+## Including a plot {-#plots1}
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE,fig.cap=figa}
+plot(pressure) 
+```
+
+See Figure \@ref(fig:pressure) for the plot.
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+```{r echo=F,eval=knitr::is_latex_output(),results='asis'}
+cat('\\newpage')
+```
+
+## Including a plot (code included)  {-#plots2}
+
+We will plot it again and now show how to code the plotting in such a way that we: 
+
+- see the code that is executed (by specifying the `echo = TRUE` parameter)
+- specify the caption by setting the `fig.cap` parameter directy to a character string without using [text references](https://bookdown.org/yihui/bookdown/markdown-extensions-by-bookdown.html#text-references) (which is also possible) 
+- are able to refer to the plot (by using \\&#64;&#8203;ref(fig:pressure2) )
+
+**Coding like this:**
+
+    figb = "My *second* figure"
+    `​``{r pressure2, echo=TRUE, fig.cap=figb}
+    plot(pressure) 
+    `​``
+    See Figure \@ref(fig:pressure2) for the plot.  
+
+**prints the conde, the plot and the following output:**
+
+```{r pressure2, echo=TRUE, fig.cap=figb}
+plot(pressure) 
+```
+
+See Figure \@ref(fig:pressure2) for the plot.
+
+**end of plot output**
+
+For details about the packages used see [Intro](#intro) and [Session Info](#sessioninfo).
+
+```{r echo=F,eval=knitr::is_latex_output(),results='asis'}
+cat('\\newpage')
+```
+
+## Session Info {-#sessioninfo}
+<!--
+The following versions of `r glue::glue_collapse(glue::backtick(c('bookdown','knitr','rmarkdown')), ", ", last = " and ")`  were used: 
+-->
+
+```{r echo=F,eval=F,comment='#'}
+sessionInfo = function() {
+  #lapply(c('shiny', 'miniUI'), loadNamespace)
+  res = utils::sessionInfo()
+  loaded = res$loadedOnly
+  res$loadedOnly = loaded[intersect(names(loaded), c(
+    'bookdown', 'knitr', 'rmarkdown'))]
+  res
+}
+sessionInfo()
+``` 
+```{r echo=F,eval=T,comment='#'}
+sessionInfo()
+``` 
+
+```{r echo=F,eval=knitr::is_html_output(),results='asis'}
+cat('## References')
+```
+
+
